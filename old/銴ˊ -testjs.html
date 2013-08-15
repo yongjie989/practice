@@ -1,0 +1,75 @@
+<script src="js/jquery-1.10.2.min.js"></script>
+<script>
+var step_id = 0;
+var total_step_id = 0;
+var session_id = 'qwertyuio';
+$(document).ready(function(){
+
+    var painter = {
+        session_id: session_id,
+        step_id: step_id,
+        object_type: '',
+        object_height: 0,
+        object_width: 0,
+        position_top: 0,
+        position_left: 0,
+        angle: 0,
+        fill: '',
+        filpX: false,
+        flipY: false,
+        hasBorders: true,
+        hasControls: true,
+        hasRotatingPoint: false,
+        opacity: 1,
+        overlayFill: '',
+        scaleX: 1,
+        scaleY: 1,
+        selectable: true
+    };
+    
+    $("#send_json").click(function(){
+    
+        var painter_json = jQuery.parseJSON(JSON.stringify(painter));
+        $.ajax({
+            dataType: "json",
+            url: 'painterHandler.ashx?action=save_painter_step',
+            data: painter_json,
+            success: function(data){alert(data);}
+        });
+        
+        total_step_id++;
+        step_id++;
+        
+        console.log(total_step_id);
+    });
+    
+    $("#get_json").click(function(){
+        //get current painter_step
+        $.getJSON('painterHandler.ashx', {'action':'get_painter_step','session_id':session_id, 'step_id':step_id}, function(data){
+            $.each(data, function(key, val){
+                console.log(key + "=>" + val);
+            });
+        });
+    });
+
+    $("#Undo").click(function(){
+        if(step_id != -1){
+            step_id -=1;
+            $.getJSON('painterHandler.ashx', {'action':'get_painter_step','session_id':session_id, 'step_id':step_id}, function(data){
+                $.each(data, function(key, val){
+                    console.log(key + "=>" + val);
+                });
+            });
+            total_step_id++;
+        }
+    });
+    
+    
+});
+
+</script>
+
+<button id="send_json">send json</button>
+<button id="get_json">get json</button>
+<button id="Undo">Undo</button>
+<button id="Redo">Redo</button>

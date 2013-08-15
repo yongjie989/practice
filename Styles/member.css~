@@ -1,0 +1,8 @@
+label {
+	font-weight: bold;
+	color: #f6a828;	
+}
+
+input, select {
+	border: 1px solid #cccccc;	
+}

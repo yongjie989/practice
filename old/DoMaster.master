@@ -1,0 +1,165 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="DoMaster.master.cs" Inherits="DoMaster" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Do It Well 藝騋數位影像中心</title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <link rel="shortcut icon" type="image/x-icon" href="css/images/favicon.ico" />
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+	<link href='http://fonts.googleapis.com/css?family=Raleway:400,900,800,700,600,500,300,200,100' rel='stylesheet' type='text/css'>
+	
+	<script src="js/jquery-1.8.0.min.js" type="text/javascript"></script>
+	<!--[if lt IE 9]>
+		<script src="js/modernizr.custom.js"></script>
+	<![endif]-->
+	<script src="js/jquery.carouFredSel-5.5.0-packed.js" type="text/javascript"></script>
+	<script src="js/functions.js" type="text/javascript"></script>
+    <style type="text/css">
+        .auto-style1 {
+            text-align: center;
+        }
+        .auto-style2 {
+            text-align: right;
+        }
+    </style>
+    </head>
+<body>
+<form id="form1" runat="server">
+<!-- wrapper -->
+<div id="wrapper">
+	<!-- shell -->
+	<div class="shell">
+		<!-- container -->
+		<div class="container">
+			<!-- header -->
+			<div id="header">
+			    <table style="width: 100%">
+                    <tr>
+                        <td style="width: 300px">
+                            <asp:Image ID="Image2" runat="server" ImageUrl="~/Images/logo01.png" />
+                        </td>
+                        <td style="width: 10px">&nbsp;</td>
+                        <td>
+                            
+                            <table style="width:100%;">
+                                <tr>
+                                    <td>
+                                <table style="width:100%;">
+                                <tr>
+                                    <td class="auto-style4" style="width: 80%">
+                                        &nbsp;</td>
+                                    <td class="auto-style2">
+                                        <asp:LinkButton ID="lbtnLogin" runat="server" OnClick="lbtnLogin_Click">登入</asp:LinkButton>
+                                    </td>
+                                    <td class="auto-style2">
+                                        <asp:LinkButton ID="lbtnRegister" runat="server" OnClick="lbtnRegister_Click">註冊</asp:LinkButton>
+                                    </td>
+                                    <td class="auto-style2">
+                                        <asp:LinkButton ID="lbtnMember" runat="server" OnClick="lbtnMember_Click">會員中心</asp:LinkButton>
+                                    </td>
+                                </tr>
+                                </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table style="width: 100%; background-image: url('/doitwell02/Images/menu003.png');">
+                                            <tr>
+                                                <td class="auto-style1">&nbsp;</td>
+                                                <td class="auto-style1">
+                                                    <asp:LinkButton ID="lbtnMsHome" runat="server" ForeColor="White" OnClick="LinkButton5_Click">首頁</asp:LinkButton>
+                                                </td>
+                                                <td class="auto-style1">
+                                                    <asp:LinkButton ID="lbtnMsShow" runat="server" ForeColor="White" OnClick="lbtnMsShow_Click">作品欣賞</asp:LinkButton>
+                                                </td>
+                                                <td class="auto-style1">
+                                                    <asp:LinkButton ID="lbtnMsBlog" runat="server" ForeColor="White" OnClick="lbtnMsBlog_Click">部落格</asp:LinkButton>
+                                                </td>
+                                                <td class="auto-style1">
+                                                    <asp:LinkButton ID="lbtnMsContact" runat="server" ForeColor="White" OnClick="lbtnMsContact_Click">聯絡我們</asp:LinkButton>
+                                                </td>
+                                                <td class="auto-style1">&nbsp;</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>
+                            <table style="width:100%;">
+                                <tr>
+                                    <td class="auto-style1">
+                                        <asp:LinkButton ID="lbtnMspPaint" runat="server" ForeColor="Black" OnClick="lbtnMspPaint_Click">無框畫</asp:LinkButton>
+                                    </td>
+                                    <td class="auto-style1">
+                                        <asp:LinkButton ID="lbtnMsBook" runat="server" ForeColor="Black" OnClick="lbtnMsBook_Click">寫真書</asp:LinkButton>
+                                    </td>
+                                    <td class="auto-style1">
+                                        <asp:LinkButton ID="lbtnMsCalendar" runat="server" ForeColor="Black" OnClick="lbtnMsCalendar_Click">年月曆</asp:LinkButton>
+                                    </td>
+                                    <td class="auto-style1">
+                                        <asp:LinkButton ID="LinkButton12" runat="server" ForeColor="Black" OnClick="LinkButton12_Click">產品</asp:LinkButton>
+                                    </td>
+                                    <td class="auto-style1">
+                                        <asp:LinkButton ID="LinkButton13" runat="server" ForeColor="Black" OnClick="LinkButton13_Click">產品</asp:LinkButton>
+                                    </td>
+                                    <td class="auto-style1">
+                                        <asp:LinkButton ID="LinkButton14" runat="server" ForeColor="Black" OnClick="LinkButton14_Click">產品</asp:LinkButton>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+			</div>
+			<!-- end of header -->
+           
+			<!-- main -->
+			<div class="main">
+
+			    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+
+			</div>
+			<!-- end of main -->
+			<div class="cl">&nbsp;</div>
+			
+			<!-- footer -->
+			<div id="footer">   
+                    <table style="width:100%;">
+                    <tr>
+                        <td class="auto-style1">獨一無二創意輸出 Do It Well 藝騋數位影像中心 c Copyright 2013</td>
+                    </tr>
+                    <tr>
+                        <td class="auto-style1">高雄市苓雅區和平一路149之8號 | TEL: 07-771-2922 | EMail:
+                            <asp:LinkButton ID="LinkButton1" runat="server">ela168.ok@gmail.com</asp:LinkButton>
+                        </td>
+                    </tr>
+                    </table>
+			</div>
+			<!-- end of footer -->
+		</div>
+		<!-- end of container -->
+	</div>
+	<!-- end of shell -->
+</div>
+<!-- end of wrapper -->
+</form>
+</body>
+</html>

@@ -1,0 +1,25 @@
+
+    <asp:Repeater id="myRepeater" runat="server">
+    <HeaderTemplate>
+    <table border="1">
+    <tr>
+    <th>user_id</th>
+    <th>background_template_id</th>
+    <th>layout_id</th>
+    <th>create_time</th>
+    </tr>
+    </HeaderTemplate>
+    <ItemTemplate>
+    <tr>
+    <td ><%#Container.DataItem("user_id") %></td>
+    <td><%#Container.DataItem("background_template_id") %></td>
+    <td><%#Container.DataItem("layout_id") %></td>
+    <td><%#Container.DataItem("create_time") %></td>
+    </tr>
+    </ItemTemplate>
+    </asp:Repeater>
+    </table>
+
+<div id="template" runat="server">
+    <button type="button" onclick="test()">test</button>
+</div>

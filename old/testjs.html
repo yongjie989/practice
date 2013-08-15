@@ -1,0 +1,217 @@
+<html>
+<script src="js/fabric.all.min.js" ></script>
+<script src="js/jquery-1.10.2.min.js"></script>
+<body>
+<button id="send_json">send json</button>
+<button id="get_json">get json</button>
+<button id="Undo">Undo</button>
+<button id="Redo">Redo</button>
+<div id="Total_ID"></div>
+<div id="Undo_ID"></div>
+<div id="Redo_ID"></div>
+
+<canvas id="c" width="1200" height="600" ></canvas>
+
+</body>
+<script>
+    var canvas = new fabric.Canvas('c');
+    var circle = new fabric.Circle({
+        radius: 20, fill: 'green', left: 100, top: 100, angle: 45
+    });
+
+    var triangle = new fabric.Triangle({
+      width: 20, height: 30, fill: 'blue', left: 50, top: 50, currentHeight:30, currentWidth: 20,
+      scaleX:1, scaleY:1,selectable: true
+    });
+
+    fabric.Image.fromURL('albums/1682o2.jpg', function(oImg) {
+        oImg.set(
+        {
+            left: canvas.getWidth() / 2,
+            top: canvas.getHeight() / 2,
+        });
+        
+        canvas.add(oImg);
+        canvas.renderAll();
+        
+    });
+    
+   
+    
+    canvas.add(circle, triangle);
+    
+    
+    //canvas.item(2).set({left:50}); //image properties.
+    //canvas.item(2).adjustPosition();
+    //canvas.renderAll();
+    //bringForward 移到上一層
+    //bringToFront 移到最上層
+    //sendBackwards 移到下一層
+    //sendToBack 移到最後層
+    
+    
+    //remeber set hasControls and hasControls to true;
+    
+    var mytest = triangle.toObject();
+    var myjson = JSON.stringify(mytest);
+    
+    
+    
+    function undo_triangle(){
+        //triangle.toJSON(); //to get the json data.
+        /*
+        var x = {
+        angle: 0,
+        clipTo: null,
+        fill: "blue",
+        flipX: false,
+        flipY: false,
+        hasBorders: true,
+        hasControls: true,
+        hasRotatingPoint: true,
+        height: 30,
+        left: 156,
+        opacity: 1,
+        originX: "center",
+        originY: "center",
+        overlayFill: null,
+        perPixelTargetFind: false,
+        scaleX: 1,
+        scaleY: 1,
+        selectable: true,
+        shadow: null,
+        stroke: "rgba(100,200,200,0.5)",
+        strokeDashArray: null,
+        strokeLineCap: "butt",
+        strokeLineJoin: "miter",
+        strokeMiterLimit: 10,
+        strokeWidth: 5,
+        top: 50,
+        transparentCorners: true,
+        type: "triangle",
+        visible: true,
+        width: 20
+        };
+        */
+        var x = {
+            angle: 0,
+            clipTo: null,
+            fill: "blue",
+            flipX: false,
+            flipY: false,
+            height: 30,
+            left: 156,
+            opacity: 1,
+            originX: "center",
+            originY: "center",
+            overlayFill: null,
+            perPixelTargetFind: false,
+            scaleX: 1,
+            scaleY: 1,
+            selectable: true,
+            top: 50,
+            type: "triangle",
+            width: 20
+        };
+
+        var myjson = JSON.stringify(x);
+        var undo = JSON.parse(myjson);
+        triangle.set(undo);
+        triangle.perPixelTargetFind = false;
+        triangle.adjustPosition();
+        canvas.renderAll();
+    
+    }
+</script>
+
+<script>
+var step_id = 0;
+var undo_id, redo_id, total_step_id = 0;
+var session_id = 'qwertyuio';
+$(document).ready(function(){
+
+    var painter = {
+        session_id: session_id,
+        step_id: step_id,
+        object_type: '',
+        object_height: 0,
+        object_width: 0,
+        position_top: 0,
+        position_left: 0,
+        angle: 0,
+        fill: '',
+        filpX: false,
+        flipY: false,
+        hasBorders: true,
+        hasControls: true,
+        hasRotatingPoint: false,
+        opacity: 1,
+        overlayFill: '',
+        scaleX: 1,
+        scaleY: 1,
+        selectable: true
+    };
+    
+    $("#send_json").click(function(){
+    
+        var painter_json = jQuery.parseJSON(JSON.stringify(painter));
+        $.ajax({
+            dataType: "json",
+            url: 'HandlerPainter.ashx?action=save_painter_step',
+            data: painter_json,
+            success: function(data){alert(data);}
+        });
+        
+        total_step_id++;
+        step_id++;
+        undo_id = NaN;
+        redo_id = NaN;
+        //$("#Total_ID").html("總步驟ID = " + total_step_id);
+    });
+    
+    $("#get_json").click(function(){
+        //get current painter_step
+        $.getJSON('HandlerPainter.ashx', {'action':'get_painter_step','session_id':session_id, 'step_id':step_id}, function(data){
+            $.each(data, function(key, val){
+                console.log(key + "=>" + val);
+            });
+        });
+    });
+
+    $("#Undo").click(function(){
+        if(isNaN(undo_id)){
+            undo_id = total_step_id;
+            redo_id = undo_id;
+        }
+        if(undo_id != 1){
+            undo_id -=1;
+            $.getJSON('HandlerPainter.ashx', {'action':'get_painter_step','session_id':session_id, 'step_id':undo_id}, function(data){
+                $.each(data, function(key, val){
+                    console.log(key + "=>" + val);
+                });
+            });
+            total_step_id++;
+        }
+        //$("#Undo_ID").html("Undo步驟ID = " + undo_id);
+        undo_triangle();
+        
+    });
+
+    $("#Redo").click(function(){
+        if(undo_id < redo_id){
+            undo_id +=1;
+            $.getJSON('HandlerPainter.ashx', {'action':'get_painter_step','session_id':session_id, 'step_id':undo_id}, function(data){
+                $.each(data, function(key, val){
+                    console.log(key + "=>" + val);
+                });
+            });
+            total_step_id++;
+        }
+        //$("#Redo_ID").html("Redo步驟ID = " + undo_id);
+    });
+    
+});
+
+</script>
+
+</html>

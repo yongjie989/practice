@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>PlumeBI - Business Intelligence Data Analytics</title>
+	<link type="text/css" href="/css/jquery-ui.css" rel="stylesheet" />	
+    <script src="js/jquery-1.6.2.min.js" type="text/javascript"></script>	
+    <script src="js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+
+</head>
+<body>
+<div id="whole_content">
+	<div id="toolbar">
+		<div>
+			<span id="NewPage">
+				<img src="images/icons/actions/document-new.png" alt="New Page" > 
+				新增
+			</span>
+			<span id="Save">
+				<img src="images/icons/actions/document-save.png" alt="Save" > 
+				儲存
+			</span>
+			<span id="Undo">
+				<img src="images/icons/actions/edit-undo.png" alt="Undo" > 
+				復原
+			</span>
+			<span id="Redo">
+				<img src="images/icons/actions/edit-redo.png" alt="Redo" > 
+				重做
+			</span>
+			<span id="Delete">
+				<img src="images/icons/actions/edit-delete.png" alt="Delete" > 
+				刪除
+			</span>
+			<span id="ZoomIn">
+				<img src="images/icons/actions/list-add.png" alt="ZoomIn" > 
+				放大
+			</span>
+			<span id="ZoomOut">
+				<img src="images/icons/actions/list-remove.png" alt="ZoomOut" > 
+				縮小
+			</span>
+			<!--
+			<span id="Fonts">
+				<img src="images/icons/actions/format-text-bold.png" alt="Fonts" > 
+				字型
+			</span>
+			<span id="Background">
+				<img src="images/icons/mimetypes/image-x-generic.png" alt="Background" > 
+				背景
+			</span>
+			<span id="Mask">
+				<img src="images/icons/stock/chart/stock_chart-data-in-columns.png" alt="Mask" > 
+				遮罩
+			</span>
+			-->
+		</div>
+	</div>
+	<div id="toolbar_setup_panel" style="display:none;">
+		<div>
+			<span id="NewPage_Detail" style="display:none;">
+				<img src="images/layout_1.png" id="layout_1"> 
+				<img src="images/layout_2.png" id="layout_2">
+			</span>
+		</div>
+		<div id="close_toolbar_setup_panel">
+			<img id="close_toolbar_setup_panel_btn" src="images/icons/actions/go-top.png" alt="Close the panel" style="cursor:pointer;">
+		</div>
+	</div>
+
+	<div id="albums">
+        <div id="left_menu">
+            <span>照片</span>
+            <span>文字</span>
+            <span>素材</span>
+            <span>遮罩</span>
+            <span>背景</span>
+        </div>
+		<div id="photos">
+			<div><img width="220" height="150" src="albums/2013-08-07_111141.jpg"></div>
+			<div><img width="220" height="150" src="albums/2013-08-07_111215.jpg"></div>
+			<div><img width="220" height="150" src="albums/2013-08-07_111224.jpg"></div>
+			<div><img width="220" height="150" src="albums/2013-08-07_111239.jpg"></div>
+			<div><img width="220" height="150" src="albums/2013-08-07_111247.jpg"></div>
+		</div>
+
+	</div>
+
+	<div id="main">
+	</div>
+	
+</div>
+
+</body>
+</html>

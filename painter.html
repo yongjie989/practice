@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+<link href='http://fonts.googleapis.com/css?family=Buenard' rel='stylesheet' type='text/css'>
+<link type="text/css" rel="stylesheet" href="Styles/doitwell.css" />
+<script src="Scripts/fabric.all.min.js" ></script>
+<script src="Scripts/jquery-1.10.2.min.js"></script>
+<script src="Scripts/modernizr.custom.50476.js"></script>
+<script type="text/javascript" >
+$(document).ready(function() {
+	var activate_detail;
+	$("#NewPage").click(function(){
+		activate_detail = $("#NewPage_Detail");
+		activate_detail.show();
+		$("#toolbar_setup_panel").slideDown();
+		
+	});
+	$("#close_toolbar_setup_panel_btn").click(function(){
+		activate_detail.hide();	
+		$("#toolbar_setup_panel").slideUp();
+	});
+});
+</script>
+
+</head>
+<body>
+<div id="whole_content">
+	<div id="toolbar">
+		<div>
+			<span id="NewPage">
+				<img src="Images/icons/actions/document-new.png" alt="New Page" > 
+				新增
+			</span>
+			<span id="Save">
+				<img src="Images/icons/actions/document-save.png" alt="Save" > 
+				儲存
+			</span>
+			<span id="Undo">
+				<img src="Images/icons/actions/edit-undo.png" alt="Undo" > 
+				復原
+			</span>
+			<span id="Redo">
+				<img src="Images/icons/actions/edit-redo.png" alt="Redo" > 
+				重做
+			</span>
+			<span id="Delete">
+				<img src="Images/icons/actions/edit-delete.png" alt="Delete" > 
+				刪除
+			</span>
+			<span id="ZoomIn">
+				<img src="Images/icons/actions/list-add.png" alt="ZoomIn" > 
+				放大
+			</span>
+			<span id="ZoomOut">
+				<img src="Images/icons/actions/list-remove.png" alt="ZoomOut" > 
+				縮小
+			</span>
+			<!--
+			<span id="Fonts">
+				<img src="Images/icons/actions/format-text-bold.png" alt="Fonts" > 
+				字型
+			</span>
+			<span id="Background">
+				<img src="Images/icons/mimetypes/image-x-generic.png" alt="Background" > 
+				背景
+			</span>
+			<span id="Mask">
+				<img src="Images/icons/stock/chart/stock_chart-data-in-columns.png" alt="Mask" > 
+				遮罩
+			</span>
+			-->
+		</div>
+	</div>
+	<div id="toolbar_setup_panel" style="display:none;">
+		<div>
+			<span id="NewPage_Detail" style="display:none;">
+				<img src="Images/layout_1.png" id="layout_1"> 
+				<img src="Images/layout_2.png" id="layout_2">
+			</span>
+		</div>
+		<div id="close_toolbar_setup_panel">
+			<img id="close_toolbar_setup_panel_btn" src="Images/icons/actions/go-top.png" alt="Close the panel" style="cursor:pointer;">
+		</div>
+	</div>
+
+	<div id="albums">
+        <div id="left_menu">
+            <span>照片</span>
+            <span>文字</span>
+            <span>素材</span>
+            <span>遮罩</span>
+            <span>背景</span>
+        </div>
+		<div id="photos">
+			<img draggable="true" width="220" height="150" src="albums/2013-08-07_111141.jpg">
+			<img draggable="true" width="220" height="150" src="albums/2013-08-07_111215.jpg">
+			<img draggable="true" width="220" height="150" src="albums/2013-08-07_111224.jpg">
+			<img draggable="true" width="220" height="150" src="albums/2013-08-07_111239.jpg">
+			<img draggable="true" width="220" height="150" src="albums/2013-08-07_111247.jpg">
+		</div>
+
+	</div>
+
+	<div id="mycanvas">
+		<div id="separate_line">	
+			<div id="mycanvas_base">
+			
+				<canvas id="c" width="1200" height="600" ></canvas>
+			
+			</div>
+		</div>
+	</div>
+	
+	<div id="pages">
+		<div>
+			<span><img src="Images/page.png" width="150" border="1"></span>
+			<span><img src="Images/page.png" width="150" border="1"></span>
+			<span><img src="Images/page.png" width="150" border="1"></span>
+			<span><img src="Images/page.png" width="150" border="1"></span>
+			<span><img src="Images/page.png" width="150" border="1"></span>
+			<span><img src="Images/page.png" width="150" border="1"></span>
+			<span><img src="Images/page.png" width="150" border="1"></span>
+			<span><img src="Images/page.png" width="150" border="1"></span>
+		</div>
+	</div>
+</div>
+
+</body>
+
+<script>
+    var canvas = new fabric.Canvas('c');
+    var circle = new fabric.Circle({
+        radius: 20, fill: 'green', left: 100, top: 100, angle: 45
+    });
+
+    var triangle = new fabric.Triangle({
+      width: 20, height: 30, fill: 'blue', left: 50, top: 50
+    });
+
+    canvas.add(circle, triangle);
+
+
+    function handleDragStart(e) {
+        [].forEach.call(images, function (img) {
+            img.classList.remove('img_dragging');
+        });
+        this.classList.add('img_dragging');
+    }
+
+    function handleDragOver(e) {
+        if (e.preventDefault) {
+            e.preventDefault(); 
+        }
+
+        e.dataTransfer.dropEffect = 'copy';
+        return false;
+    }
+
+    function handleDragEnter(e) {
+        this.classList.add('over');
+    }
+
+    function handleDragLeave(e) {
+        this.classList.remove('over');
+    }
+
+    function handleDrop(e) {
+        if (e.stopPropagation) {
+            e.stopPropagation();
+        }
+
+        var img = document.querySelector('#photos img.img_dragging');
+
+        console.log('event: ', e);
+
+        var newImage = new fabric.Image(img, {
+            width: img.width,
+            height: img.height,
+            left: e.layerX,
+            top: e.layerY
+        });
+        canvas.add(newImage);
+
+        return false;
+    }
+
+    function handleDragEnd(e) {
+        [].forEach.call(images, function (img) {
+            img.classList.remove('img_dragging');
+        });
+    }
+
+    if (Modernizr.draganddrop) {
+        var images = document.querySelectorAll('#photos img');
+        [].forEach.call(images, function (img) {
+            img.addEventListener('dragstart', handleDragStart, false);
+            img.addEventListener('dragend', handleDragEnd, false);
+        });
+        var canvasContainer = document.getElementById('mycanvas_base');
+        canvasContainer.addEventListener('dragenter', handleDragEnter, false);
+        canvasContainer.addEventListener('dragover', handleDragOver, false);
+        canvasContainer.addEventListener('dragleave', handleDragLeave, false);
+        canvasContainer.addEventListener('drop', handleDrop, false);
+    } else {
+        alert("This browser doesn't support the HTML5 Drag and Drop API.");
+    }
+</script>
+</html>
