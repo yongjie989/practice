@@ -75,7 +75,7 @@ public class MySqlInsert
             }            
         }
 
-        return "INSERT INTO " + _table + " (" + s1 + ") VALUES (" + s2 + ");";
+        return "INSERT INTO " + _table + " (" + s1 + ") VALUES (" + s2 + ")";
     }
 
     /// <summary>

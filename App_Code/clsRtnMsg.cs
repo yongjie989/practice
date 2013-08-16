@@ -17,6 +17,11 @@ public class eCode
     public static readonly string NOT_EXIST_UID = "103";
     public static readonly string NOT_EXIST_PW = "104";
     public static readonly string UNACTIVE = "105";
+    public static readonly string EX_CAPTCHA = "106";
+    public static readonly string NOT_EXIST_MEMBER = "107";
+
+    // system
+    public static readonly string NOT_EXIST_ACTION= "998";
     public static readonly string EXCEPTION = "999";
 }
 
@@ -33,6 +38,12 @@ public class clsRtnMsg
         { eCode.EX_SEND_EMAIL, "發送Email發生錯誤 " },
         { eCode.NOT_EXIST_UID, "帳號錯誤 " },
         { eCode.NOT_EXIST_PW, "密碼錯誤 " },
-        { eCode.UNACTIVE, "未啟動連結 " }
+        { eCode.UNACTIVE, "未啟動連結 " },
+        { eCode.EX_CAPTCHA, "圖片驗證錯誤，您輸入的是 " },
+        { eCode.NOT_EXIST_MEMBER, "會員資料不存到 " },
+
+
+
+        { eCode.NOT_EXIST_ACTION, "找不到對應Action名稱為 " }
     };
 }

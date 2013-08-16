@@ -92,18 +92,12 @@
                 $("#Redo_ID").html("Redo步驟ID = " + undo_id);
             });
 
-
-            var member = {
-                real_name: '邱健全',
-                email: '123456@gmail.com'                
-            };
-
             $("#Member_Active").click(function () {
 
-                var member_json = jQuery.parseJSON(JSON.stringify(member));
+                var member_json
                 $.ajax({
                     dataType: "json",
-                    url: 'HandlerMember.ashx?action=member_active',
+                    url: 'HandlerMember.ashx?action=member_active&user_name=aa&email=amau712@gmail.com',
                     data: member_json,
                     success: function (data) { alert(data); }
                 });

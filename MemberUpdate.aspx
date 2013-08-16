@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/DoMaster.master" AutoEventWireup="true" CodeFile="MemberUpdate.aspx.cs" Inherits="MemberUpdate" EnableSessionState="True" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server"></asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -7,15 +8,70 @@
 <link rel="stylesheet" type="text/css" href="Styles/ui-lightness/jquery-ui-1.10.3.custom.css" />
 <script type="text/javascript" src="Scripts/jquery-ui-1.10.3.custom.js"></script>
 <script type="text/javascript" src="Scripts/aj-address.js"></script>
-    <script type="text/javascript" src="Scripts/Member.js"></script>
+<script type="text/javascript" src="Scripts/Member.js"></script>
 <link rel="stylesheet" type="text/css" href="Styles/doitwell.css" />
 <link rel="stylesheet" type="text/css" href="Styles/member.css" />
 <script type="text/javascript">
+
+    function send_again_for_this_username(){
+        var member_json = {};
+        member_json.user_name = '<%=session_name%>';
+        var member_json = jQuery.parseJSON(JSON.stringify(member_json));
+        console.log(member_json);
+        
+        $.ajax({
+            dataType: "json",
+            url: 'HandlerMember.ashx?action=get_member_info',
+            data: member_json,
+            success: function(data){
+                console.log(data);
+            }
+        });
+    };
+
     $(document).ready(function () {
-        $("#submit_button").button().css({ "font-size": "12px" });
+        $("#update_button").button().css({ "font-size": "12px" });
+        var member_json = {};
+        member_json.user_name = '<%=session_name%>';
+        var member_json = jQuery.parseJSON(JSON.stringify(member_json));
+        console.log(member_json);
+
+        $.ajax({
+            dataType: "json",
+            url: 'HandlerMember.ashx?action=get_member_info',
+            data: member_json,
+            success: function (data) {
+                console.log(data);
+                $("#user_register_form").find("input[name=real_name]").val(data.real_name);
+                $("#user_name").html(data.user_name);
+                global_user_name = data.user_name;
+                $("#user_register_form").find("input[name=password]").val(data.password);
+                $("#user_register_form").find("input[name=confirm_password]").val(data.password);
+                $("#user_register_form").find("select[name=gender]").val(data.gender);
+                $("#user_register_form").find("select[name=birthday_year]").val(data.birthday_year);
+                $("#user_register_form").find("select[name=birthday_month]").val(data.birthday_month);
+                $("#user_register_form").find("select[name=birthday_day]").val(data.birthday_day);
+                $("#user_register_form").find("input[name=telephone]").val(data.telephone);
+                $("#user_register_form").find("input[name=mobile]").val(data.mobile);
+                $("#user_register_form").find("input[name=email]").val(data.email);
+                $("#user_register_form").find("input[name=zipcode]").val(data.zipcode);
+                $("#user_register_form").find("select[name=city]").val(data.city);
+                $("#user_register_form").find("select[name=city]").trigger("change");
+                $("#user_register_form").find("select[name=locality]").val(data.locality);
+                $("#user_register_form").find("select[name=locality]").trigger("change");
+                $("#user_register_form").find("input[name=address]").val(data.address);
+
+                //send_again_for_this_username();
+            }
+        });
+
     });
-</script>
+
     
+</script>
+
+<body onload="init_address();">
+
 <div id="user_register_form">
 	<div id="system_message" class="ui-state-error ui-corner-all"></div>
 	<form id="front_user_register_form">
@@ -43,7 +99,7 @@
         <tr>
             <td align="right" valign="bottom"><label>*帳號</label></td>
             <td>
-                <input type="text" name="user_name" size="20" />
+                <span id="user_name"></span>
             </td>
         </tr>
         <tr>
@@ -254,12 +310,12 @@
         <tr>
             <td align="right" valign="bottom"></td>
             <td>
-            	<input type="button" id="submit_button" name="submit_button" value="送出" />
+            	<input type="button" id="update_button" name="update_button" value="更新" />
             </td>
         </tr>
     </table>
     </form>
 </div>    
-    
+</body>
 </asp:Content>
 

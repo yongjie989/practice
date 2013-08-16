@@ -12,12 +12,13 @@ developer: Ethan
 [4] http://140.116.86.167/page1.aspx?act=showdata is example for mysql select.
 [5] http://140.116.86.167/painter.html is draft layout for painter desktop.
 
-
+=============================
 Latest update time: 2013/8/13 21:21
 developer: Allen
 [1] Add MySQL Class
 [2] Add Json.Net Library
 
+=============================
 Latest update time: 2013/8/13 10:36
 developer: Ethan
 [1] painter.sql is SQL for Painter.
@@ -39,11 +40,12 @@ developer: Ethan
 [2] Undo & Redo QueryString:
     Undo => painterHandler.ashx?action=undo
 
+=============================
 Latest update time: 2013/8/14 14:13
 developer: Ethan
 [1] Send member register data to HandlerMember.ashx?action=member_register
     {
-        real_name: "黃勇介"
+        real_name: "Here is name"
         user_name: "ethan"
         password: "123"
         gender: "男"
@@ -55,7 +57,7 @@ developer: Ethan
         email: "yongjie989@gmail.com"
         city: "台南市"
         locality: "安南區"
-        address: "安中一街"
+        address: "XX路"
     };
 [2] Response data for [action=member_register]
     Response '000' when insert into OK . Otherwise server return { id:xxx, message: xxx } json format.
@@ -64,3 +66,8 @@ developer: Ethan
 [4] HandlerMember.ashx?action=get_member_data&user_name=Session['user_name'];
 [5] HandlerMember.ashx?action=member_forgot 
     back-side needs send password to email for the user.  
+
+=============================
+Latest update time: 2013/8/16 13:30
+developer: Ethan
+[1] Update TABLE, added zipcode field in the member table.

@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <div style="height: 325px; background-image: url('css/images/slider-bg.jpg');">
+    <div style="height: 325px; background-image: url('Images/slider-bg.jpg');">
     </div>
     <div>
 

@@ -24,4 +24,5 @@ public class clsMember
     public string address { get; set; }
     public string active { get; set; }
     public string createtime { get; set; }
+    public string verify { get; set; }
 }

@@ -51,14 +51,24 @@ public static class clsCommon
             exceptionType.LastIndexOf('.') + 1);
     }
 
-    public static void SendMail(HttpContext context, clsMember m, ref clsRtnMsg msg)
+    # region " Mail "
+    public static void SendMail(string tempName, HttpContext context, clsMember m, ref clsRtnMsg msg)
     {
         MailMessage mailMsg = new MailMessage();
         System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
         try
         {
-            mailMsg.Subject = "DoItWell啟動連結";
-            mailMsg.Body = clsCommon.ActiveMailTemplate(context, m.real_name, m.email);
+            switch (tempName)
+            { 
+                case "ActiveMail":
+                    mailMsg.Subject = "DoItWell啟動連結";
+                    mailMsg.Body = clsCommon.MailTemplate("ActiveMail", context, m.real_name, m.email);
+                    break;
+                case "SendPassword":
+                    mailMsg.Subject = "DoItWell使用者密碼";
+                    mailMsg.Body = clsCommon.MailTemplate("SendPassword", context, m.real_name, m.email);
+                    break;
+            }            
             mailMsg.From = new MailAddress("doitwell588@gmail.com");
             mailMsg.To.Add("amau712@gmail.com");
             mailMsg.IsBodyHtml = true;
@@ -74,11 +84,11 @@ public static class clsCommon
         catch (Exception ex)
         {
             msg.id = eCode.EX_SEND_EMAIL;
-            msg.message = clsRtnMsg.errDecrip[msg.id] + ex.Message;            
+            msg.message = clsRtnMsg.errDecrip[msg.id] + ex.Message;
         }
     }
 
-    public static string ActiveMailTemplate(HttpContext context, string userNamem, string eMail)
+    public static string MailTemplate(string tempName, HttpContext context, string userNamem, string eMail)
     {
         StreamReader sr = null;
         string strBody = "";
@@ -86,8 +96,17 @@ public static class clsCommon
         //讀取信件範本 
         try
         {
-            sr = new StreamReader(context.Request.MapPath("TemplateActiveMail.html"), Encoding.Default);
-            strBody = sr.ReadToEnd();
+            switch (tempName)
+            {
+                case "ActiveMail":
+                    sr = new StreamReader(context.Request.MapPath("TemplateActiveMail.html"), Encoding.Default);
+                    strBody = sr.ReadToEnd();
+                    break;
+                case "SendPassword":
+                    sr = new StreamReader(context.Request.MapPath("TemplateSendPassword.html"), Encoding.Default);
+                    strBody = sr.ReadToEnd();
+                    break;
+            }            
 
         }
         catch (Exception ex)
@@ -99,9 +118,19 @@ public static class clsCommon
             sr.Close();
         }
         //將範本內的特定變數作取代 
-        strBody = strBody.Replace("$realName$", userNamem);
-        strBody = strBody.Replace("$eMail$", eMail);
+        switch (tempName)
+        {
+            case "ActiveMail":
+                strBody = strBody.Replace("$realName$", userNamem);
+                strBody = strBody.Replace("$eMail$", eMail);
+                break;
+            case "SendPassword":
+                strBody = strBody.Replace("$realName$", userNamem);
+                strBody = strBody.Replace("$password$", eMail);
+                break;
+        }        
 
         return strBody;
     }
+    # endregion    
 }
