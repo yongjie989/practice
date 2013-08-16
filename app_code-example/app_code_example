@@ -1,0 +1,35 @@
+//app_code/my.cs
+
+using System;
+
+public class my{
+    public int _sIndex;
+    public string _name;
+    public int sIndex{
+           set { _sIndex = value; }
+           get { return _sIndex*2; }
+    }
+    public  string Perl(string _name){
+        return (">>" + _name);
+    }
+    
+}
+
+//MemberRegister.aspx.cs
+using System;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class MemberRegister : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        my m = new my();
+        m._sIndex = 10;
+        
+        //Response.Write(m.sIndex);
+        Response.Write(m.Perl("ethan"));
+    }
+}
