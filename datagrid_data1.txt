@@ -1,0 +1,7 @@
+{"total":5,"rows":[
+	{"ads_id":"1","kind":"slider","content":"test","image_url":"images/col-img.png","status":"Y"},
+	{"ads_id":"2","kind":"slider","content":"123","image_url":"images/1.png","status":"Y"},
+	{"ads_id":"3","kind":"slider","content":"rrr","image_url":"images/2.png","status":"N"},
+	{"ads_id":"4","kind":"slider","content":"aswwwda","image_url":"images/3.png","status":"Y"},
+	{"ads_id":"5","kind":"slider","content":"egggg","image_url":"images/4.png","status":"Y"}
+]}
