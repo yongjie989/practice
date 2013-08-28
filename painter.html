@@ -130,6 +130,15 @@ $(document).ready(function() {
 </body>
 
 <script>
+	/*
+	canvas.getObjects();
+	canvas.getObjects()[2];
+	canvas.getActiveObject();選取中的物件.
+	
+	//取得圖片檔名
+	var ac = canvas.getActiveObject();
+	ac._originalImage.attributes.src.value;
+	*/
     var canvas = new fabric.Canvas('c');
     var circle = new fabric.Circle({
         radius: 20, fill: 'green', left: 100, top: 100, angle: 45
