@@ -4,26 +4,12 @@
 <meta charset="utf-8" />
 <title></title>
 <link href='http://fonts.googleapis.com/css?family=Buenard' rel='stylesheet' type='text/css'>
-<link type="text/css" rel="stylesheet" href="Styles/doitwell.css" />
-<script src="Scripts/fabric.all.min.js" ></script>
-<script src="Scripts/jquery-1.10.2.min.js"></script>
-<script src="Scripts/modernizr.custom.50476.js"></script>
-<script type="text/javascript" >
-$(document).ready(function() {
-	var activate_detail;
-	$("#NewPage").click(function(){
-		activate_detail = $("#NewPage_Detail");
-		activate_detail.show();
-		$("#toolbar_setup_panel").slideDown();
-		
-	});
-	$("#close_toolbar_setup_panel_btn").click(function(){
-		activate_detail.hide();	
-		$("#toolbar_setup_panel").slideUp();
-	});
-});
-</script>
-
+<link type="text/css" rel="stylesheet" href="painter/painter.css" />
+<link type="text/css" rel="stylesheet" href="painter/fontselector.css" />
+<script src="painter/fabric.all.min.js" ></script>
+<script src="painter/jquery-1.10.2.min.js"></script>
+<script src="painter/modernizr.custom.50476.js"></script>
+<script src="painter/jquery.fontselector.js"></script>
 </head>
 <body>
 <div id="whole_content">
@@ -45,15 +31,15 @@ $(document).ready(function() {
 				<img src="Images/icons/actions/edit-redo.png" alt="Redo" > 
 				重做
 			</span>
-			<span id="Delete">
+			<span id="Delete" onclick="delete_object();">
 				<img src="Images/icons/actions/edit-delete.png" alt="Delete" > 
 				刪除
 			</span>
-			<span id="ZoomIn">
+			<span id="ZoomIn" onclick="enlarge_object();";>
 				<img src="Images/icons/actions/list-add.png" alt="ZoomIn" > 
 				放大
 			</span>
-			<span id="ZoomOut">
+			<span id="ZoomOut" onclick="decrease_object();";>
 				<img src="Images/icons/actions/list-remove.png" alt="ZoomOut" > 
 				縮小
 			</span>
@@ -87,18 +73,31 @@ $(document).ready(function() {
 
 	<div id="albums">
         <div id="left_menu">
-            <span>照片</span>
-            <span>文字</span>
-            <span>素材</span>
-            <span>遮罩</span>
-            <span>背景</span>
+            <span id="photos_btn" onclick="change_page('#photos_page');">照片</span>
+            <span id="text_btn" onclick="change_page('#text_page');">文字</span>
+            <span id="material_btn" onclick="change_page('#material_page');">素材</span>
+            <span id="mask_btn" onclick="change_page('#mask_page');">遮罩</span>
+            <span id="background_btn" onclick="change_page('#background_page');">背景</span>
         </div>
-		<div id="photos">
+		<div id="photos_page">
 			<img draggable="true" width="220" height="150" src="albums/2013-08-07_111141.jpg">
 			<img draggable="true" width="220" height="150" src="albums/2013-08-07_111215.jpg">
 			<img draggable="true" width="220" height="150" src="albums/2013-08-07_111224.jpg">
 			<img draggable="true" width="220" height="150" src="albums/2013-08-07_111239.jpg">
 			<img draggable="true" width="220" height="150" src="albums/2013-08-07_111247.jpg">
+            <img draggable="true" width="220" height="150" src="Im Ji Hye_2.jpg">            
+		</div>
+		<div id="text_page">
+			選擇字型:
+            <div id="fontSelect" class="fontSelect">
+                <div class="arrow-down"></div>
+            </div>
+            <div class="separate_line"></div>
+            文字內容:<br/>
+            <textarea id="add_text" name="add_text" rows="10" cols="25"></textarea>
+            
+            <button id="add_text_btn" onclick="add_text();">新增</button>
+            
 		</div>
 
 	</div>
@@ -128,92 +127,6 @@ $(document).ready(function() {
 </div>
 
 </body>
+<script src="painter/painter.js"></script>
 
-<script>
-	/*
-	canvas.getObjects();
-	canvas.getObjects()[2];
-	canvas.getActiveObject();選取中的物件.
-	
-	//取得圖片檔名
-	var ac = canvas.getActiveObject();
-	ac._originalImage.attributes.src.value;
-	*/
-    var canvas = new fabric.Canvas('c');
-    var circle = new fabric.Circle({
-        radius: 20, fill: 'green', left: 100, top: 100, angle: 45
-    });
-
-    var triangle = new fabric.Triangle({
-      width: 20, height: 30, fill: 'blue', left: 50, top: 50
-    });
-
-    canvas.add(circle, triangle);
-
-
-    function handleDragStart(e) {
-        [].forEach.call(images, function (img) {
-            img.classList.remove('img_dragging');
-        });
-        this.classList.add('img_dragging');
-    }
-
-    function handleDragOver(e) {
-        if (e.preventDefault) {
-            e.preventDefault(); 
-        }
-
-        e.dataTransfer.dropEffect = 'copy';
-        return false;
-    }
-
-    function handleDragEnter(e) {
-        this.classList.add('over');
-    }
-
-    function handleDragLeave(e) {
-        this.classList.remove('over');
-    }
-
-    function handleDrop(e) {
-        if (e.stopPropagation) {
-            e.stopPropagation();
-        }
-
-        var img = document.querySelector('#photos img.img_dragging');
-
-        console.log('event: ', e);
-
-        var newImage = new fabric.Image(img, {
-            width: img.width,
-            height: img.height,
-            left: e.layerX,
-            top: e.layerY
-        });
-        canvas.add(newImage);
-
-        return false;
-    }
-
-    function handleDragEnd(e) {
-        [].forEach.call(images, function (img) {
-            img.classList.remove('img_dragging');
-        });
-    }
-
-    if (Modernizr.draganddrop) {
-        var images = document.querySelectorAll('#photos img');
-        [].forEach.call(images, function (img) {
-            img.addEventListener('dragstart', handleDragStart, false);
-            img.addEventListener('dragend', handleDragEnd, false);
-        });
-        var canvasContainer = document.getElementById('mycanvas_base');
-        canvasContainer.addEventListener('dragenter', handleDragEnter, false);
-        canvasContainer.addEventListener('dragover', handleDragOver, false);
-        canvasContainer.addEventListener('dragleave', handleDragLeave, false);
-        canvasContainer.addEventListener('drop', handleDrop, false);
-    } else {
-        alert("This browser doesn't support the HTML5 Drag and Drop API.");
-    }
-</script>
 </html>
