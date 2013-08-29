@@ -1,14 +1,18 @@
 @font-face {
+  font-family: 王漢宗新潮體;
+  src: url("painter/WCL-01.ttf"), local("d:\doitwell02\painter\WCL-01.ttf");
+}
+@font-face {
   font-family: '細圓體';
   src: local("細圓體.ttc");
 }
 @font-face {
-  font-family: 鋼筆體W2;
-  src: local("./鋼筆體W2.ttc");
+  font-family: 華康鋼筆體;
+  src: local("/painter/鋼筆體W2.TTC");
 }
 
 html, body {
-	font-family: 'Buenard', serif;
+	font-family: 'Buenard', serif, '王漢宗新潮體', 華康鋼筆體, 華康鋼筆體W2;
 	margin-left: 0px;
 	margin-top: 0px;
 	margin-right: 0px;

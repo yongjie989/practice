@@ -43,6 +43,7 @@ $(document).ready(function() {
             console.log(style); 
             },
         'fonts' : [
+			'王漢宗新潮體,王漢宗新潮體',
             '華康鋼筆體,華康鋼筆體W2',
             '華康細圓體,細圓體',
             '標楷體,標楷體',
