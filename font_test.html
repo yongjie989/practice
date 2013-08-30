@@ -1,0 +1,52 @@
+<html>
+<head>
+    <script src="fabric.all.min.js" ></script>
+    <script src="jquery-1.10.2.min.js"></script> 
+    <style type="text/css">
+        
+        @font-face {
+            font-family: "myfont1";
+            font-style: normal;
+            font-weight: 400;
+            src: url(http://wenq.org/cloud/logo/wqy-yunlogo.ttf) ;
+        }
+		
+		@font-face {
+		  font-family: "王漢宗新潮體";
+		  src: url("WCL-01.ttf");
+		}
+		@font-face {
+		  font-family: '細圓體';
+		  src: local("細圓體.ttc");
+		}
+		@font-face {
+		  font-family: 華康鋼筆體;
+		  src: local("/painter/鋼筆體W2.TTC");
+		}
+
+		.custome_font1 {
+			font-family: "王漢宗新潮體";
+			font-size:50px;
+		}
+    </style>
+    
+<body>
+        <canvas id="c" style="border:1px solid ;" ></canvas>
+        <p class="customfont">ABCDEFGHJISDFSDF</p>
+		<span class="custome_font1">中文字型測試1</span>
+</body>
+ 
+<script>
+$(function () {
+    var canvas = new fabric.Canvas('c');
+    var hi = new fabric.Text('滄海鴟鴞', {
+        left: 50,
+        top: 10,
+        fontFamily: 'myfont1',
+        textShadow: 'rgba(0,0,0,0.3) 5px 5px 5px'
+    });
+    canvas.add(hi);
+});
+</script>
+</head>
+</html>
